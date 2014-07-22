@@ -1,0 +1,15 @@
+--- apache-tomcat-7.0.21/bin/service.bat	2011-08-29 21:17:36.000000000 -0400
++++ ozone-tomcat-7.0.21/bin/service.bat	2014-07-18 18:14:59.695322000 -0400
+@@ -160,6 +160,12 @@
+ set PR_STDOUTPUT=auto
+ set PR_STDERROR=auto
+ "%EXECUTABLE%" //US//%SERVICE_NAME% ++JvmOptions "-Djava.io.tmpdir=%CATALINA_BASE%\temp;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djava.util.logging.config.file=%CATALINA_BASE%\conf\logging.properties" --JvmMs 128 --JvmMx 256
++
++rem Add OZONE-specific Java options
++set J_OPTS=-Djavax.net.ssl.trustStore=%CATALINA_HOME%\certs\keystore.jks;-Djavax.net.ssl.keyStore=%CATALINA_HOME%\certs\keystore.jks;-Djavax.net.ssl.trustStorePassword=changeit;-Djavax.net.ssl.keyStorePassword=changeit;-XX:PermSize=128m;-XX:MaxPermSize=256m
++
++"%EXECUTABLE%" //US//%SERVICE_NAME% ++JvmOptions "%J_OPTS%" --StartPath "%CATALINA_HOME%" --StopPath "%CATALINA_HOME%" --JvmMs 512 --JvmMx 1024
++
+ echo The service '%SERVICE_NAME%' has been installed.
+ 
+ :end

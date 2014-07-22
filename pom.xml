@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.ozoneplatform</groupId>
+    <artifactId>ozone-custom-tomcat</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.8</version>
+    <description>Stock Tomcat server customized with OWF development SSL settings</description>
+
+    <properties>
+        <project.zip.directory>apache-tomcat-7.0.21</project.zip.directory>
+        <tomcat.stage>${project.build.directory}/${project.zip.directory}</tomcat.stage>
+        <tomcat.archive.url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.21/bin</tomcat.archive.url>
+        <tomcat.filename>apache-tomcat-7.0.21-windows-x86.zip</tomcat.filename>
+        <juli.version>7.0.22</juli.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.extras</groupId>
+            <artifactId>tomcat-extras-juli-adapters</artifactId>
+            <version>${juli.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <!-- Copy dependencies into lib directory -->
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>fetch-and-unzip</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="cache" />
+
+                                <!--
+                                  Download stock Tomcat package. The archive
+                                  server may be slow. This step will do
+                                  nothing if the file is already found in
+                                  the 'cache' directory. You may download it
+                                  before starting the build.
+                                  -->
+                                <get src="${tomcat.archive.url}/${tomcat.filename}"
+                                     dest="cache/${tomcat.filename}"
+                                     verbose="true"
+                                     usetimestamp="true" />
+
+                                <unzip src="cache/${tomcat.filename}"
+                                       dest="${project.build.directory}" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>copy-files-into-stage</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <target>
+                                <!-- Replace with newer juli lib -->
+                                <copy file="lib/tomcat-extras-juli-${juli.version}.jar"
+                                      tofile="${tomcat.stage}/bin/tomcat-juli.jar"
+                                      overwrite="true" />
+
+                                <!-- All other JARs go to server CLASSPATH -->
+                                <copy todir="${tomcat.stage}/lib">
+                                    <fileset dir="lib">
+                                        <exclude name="tomcat-extras-juli-${juli.version}.jar"/>
+                                    </fileset>
+                                </copy>
+
+                                <!-- Add other config files -->
+                                <copy todir="${tomcat.stage}">
+                                    <fileset dir="custom" />
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+             <plugin>
+                <artifactId>maven-patch-plugin</artifactId>
+                <configuration>
+                    <strip>1</strip>
+                    <patchDirectory>patch</patchDirectory>
+                    <targetDirectory>${tomcat.stage}</targetDirectory>
+                    <patches>
+                        <patch>service.bat.patch</patch>
+                        <patch>server.xml.patch</patch>
+                    </patches>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-distribution</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>zip.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>deployment</id>
+            <name>OZONE Releases</name>
+            <url>https://www.owfgoss.org/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>deployment</id>
+            <name>OZONE Snapshots</name>
+            <url>https://www.owfgoss.org/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
