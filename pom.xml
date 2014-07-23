@@ -125,15 +125,19 @@
                         <configuration>
                             <target>
                                 <!--
-                                  Ensure proper line endings for batch files
+                                  Ensure proper line endings for batch
+                                  files. Also put CRLF back into patched XML
+                                  file so Windows users don't see everything
+                                  on a single line if they open it in
+                                  notepad.
                                   -->
                                 <fixcrlf srcdir="${tomcat.stage}"
-                                         includes="**/**.bat"
+                                         includes="**/*.bat,**/server.xml"
                                          eol="crlf" />
 
                                 <!--
                                   Make shell scripts executable. Only works
-                                  if on Linux/UNIX.
+                                  if build is run on Linux/UNIX.
                                   -->
                                 <chmod dir="${tomcat.stage}" perm="+x"
                                        includes="**/*.sh" />
@@ -145,7 +149,7 @@
                     </execution>
                 </executions>
             </plugin>
-             <plugin>
+            <plugin>
                 <artifactId>maven-patch-plugin</artifactId>
                 <configuration>
                     <strip>1</strip>
