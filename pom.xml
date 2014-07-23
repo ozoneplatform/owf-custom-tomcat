@@ -119,6 +119,30 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>fix-batch-line-endings</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <target>
+                                <!--
+                                  Ensure proper line endings for batch files
+                                  -->
+                                <fixcrlf srcdir="${tomcat.stage}"
+                                         includes="**/**.bat"
+                                         eol="crlf" />
+
+                                <!--
+                                  Make shell scripts executable. Only works
+                                  if on Linux/UNIX.
+                                  -->
+                                <chmod dir="${tomcat.stage}" perm="+x"
+                                       includes="**/*.sh" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
              <plugin>
