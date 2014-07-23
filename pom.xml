@@ -77,6 +77,15 @@
 
                                 <unzip src="cache/${tomcat.filename}"
                                        dest="${project.build.directory}" />
+
+                                <!--
+                                  Convert line endings to UNIX for files
+                                  that will be patched. Patch command fails
+                                  with Windows CRLF terminators.
+                                  -->
+                                <fixcrlf srcdir="${tomcat.stage}"
+                                    includes="**/service.bat,**/server.xml"
+                                    eol="lf" />
                             </target>
                         </configuration>
                         <goals>
