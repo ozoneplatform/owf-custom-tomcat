@@ -6,7 +6,7 @@
     <groupId>org.ozoneplatform</groupId>
     <artifactId>ozone-custom-tomcat</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.1.0</version>
     <description>Stock Tomcat server customized with OWF development SSL settings</description>
 
     <properties>
