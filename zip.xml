@@ -8,7 +8,7 @@
     <fileSets>
         <fileSet>
             <directory>${tomcat.stage}</directory>
-            <outputDirectory>${project.zip.directory}</outputDirectory>
+            <outputDirectory>${zip.root.directory}</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
             <excludes>
                 <!-- Exclude unused Tomcat config samples -->

@@ -6,15 +6,23 @@
     <groupId>org.ozoneplatform</groupId>
     <artifactId>ozone-custom-tomcat</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.8</version>
+    <version>1.0.9-SNAPSHOT</version>
     <description>Stock Tomcat server customized with OWF development SSL settings</description>
 
     <properties>
-        <project.zip.directory>apache-tomcat-7.0.21</project.zip.directory>
-        <tomcat.stage>${project.build.directory}/${project.zip.directory}</tomcat.stage>
-        <tomcat.archive.url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.21/bin</tomcat.archive.url>
-        <tomcat.filename>apache-tomcat-7.0.21-windows-x86.zip</tomcat.filename>
-        <juli.version>7.0.22</juli.version>
+        <!--
+          Root directory of final output ZIP. Leave out Tomcat version in
+          order to make this package easy to integrate into other build
+          scripts; no need for them to change when Tomcat version increases.
+          -->
+        <zip.root.directory>apache-tomcat</zip.root.directory>
+        <!-- Target Tomcat version to download and then patch -->
+        <tomcat.version>7.0.54</tomcat.version>
+        <tomcat.stage>${project.build.directory}/apache-tomcat-${tomcat.version}</tomcat.stage>
+        <tomcat.archive.url>http://archive.apache.org/dist/tomcat/tomcat-7/v${tomcat.version}/bin</tomcat.archive.url>
+        <!-- Actual stock Tomcat package to download -->
+        <tomcat.filename>apache-tomcat-${tomcat.version}-windows-x86.zip</tomcat.filename>
+        <juli.version>${tomcat.version}</juli.version>
     </properties>
 
     <dependencies>

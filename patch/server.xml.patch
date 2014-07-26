@@ -1,5 +1,5 @@
---- apache-tomcat-7.0.21/conf/server.xml	2011-08-29 21:17:36.000000000 -0400
-+++ ozone-tomcat-7.0.21/conf/server.xml	2014-07-18 18:34:45.915347000 -0400
+--- apache-tomcat-7.0.54/conf/server.xml	2014-05-19 22:33:02.000000000 -0400
++++ ozone-tomcat-7.0.54/conf/server.xml	2014-07-25 22:31:36.892422174 -0400
 @@ -24,7 +24,7 @@
    <Listener className="org.apache.catalina.security.SecurityListener" />
    -->
@@ -23,13 +23,13 @@
    </GlobalNamingResources>
  
    <!-- A "Service" is a collection of one or more "Connectors" that share
-@@ -81,14 +81,27 @@
-          This connector uses the JSSE configuration, when using APR, the 
-          connector should be using the OpenSSL style configuration
-          described in the APR documentation -->
+@@ -82,14 +82,27 @@
+          style configuration. When using the APR/native implementation, the
+          OpenSSL style configuration is required as described in the APR/native
+          documentation -->
 -    <!--
-     <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
-                maxThreads="150" scheme="https" secure="true"
+     <Connector port="8443" protocol="org.apache.coyote.http11.Http11Protocol"
+                maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
 -               clientAuth="false" sslProtocol="TLS" />
 -    -->
 +               keystoreFile="certs/keystore.jks" keystorePass="changeit"
@@ -55,7 +55,7 @@
  
  
      <!-- An Engine represents the entry point (within Catalina) that processes
-@@ -111,14 +124,14 @@
+@@ -112,14 +125,14 @@
  
        <!-- Use the LockOutRealm to prevent attempts to guess user passwords
             via a brute-force attack -->
@@ -73,15 +73,15 @@
  
        <Host name="localhost"  appBase="webapps"
              unpackWARs="true" autoDeploy="true">
-@@ -132,9 +145,11 @@
+@@ -133,9 +146,9 @@
          <!-- Access log processes all example.
               Documentation at: /docs/config/valve.html
               Note: The pattern used is equivalent to using pattern="common" -->
-+        <!--
-         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+-        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
++        <!--<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                 prefix="localhost_access_log." suffix=".txt"
-                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-+               -->
+-               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
++               pattern="%h %l %u %t &quot;%r&quot; %s %b" />-->
  
        </Host>
      </Engine>
