@@ -23,13 +23,28 @@
     <packaging>pom</packaging>
     <version>1.1.0</version>
     <description>Stock Tomcat server customized with OWF development SSL settings</description>
-
+    <url>https://github.com/ozoneplatform/owf-custom-tomcat</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Stephanie Schneider</name>
+            <email>stephanie.schneider@nextcentury.com</email>
+            <organization>Next Century</organization>
+            <organizationUrl>https://www.nextcentury.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:ozoneplatform/owf-custom-tomcat.git</connection>
+        <developerConnection>scm:git:git@github.com:ozoneplatform/owf-custom-tomcat.git</developerConnection>
+        <url>git@github.com:ozoneplatform/owf-custom-tomcat.git</url>
+    </scm>
 
     <properties>
         <!--
