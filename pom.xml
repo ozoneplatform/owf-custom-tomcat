@@ -196,6 +196,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-patch-plugin</artifactId>
+                <version>1.2</version>
                 <configuration>
                     <strip>1</strip>
                     <patchDirectory>patch</patchDirectory>
