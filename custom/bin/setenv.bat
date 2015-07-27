@@ -14,6 +14,8 @@ if not errorlevel 1 (
 set CATALINA_OPTS=-server %CATALINA_OPTS%
 )
 
+set JAVA_OPTS=-Dstringchararrayaccessor.disabled=true
+
 echo Running SETENV.BAT
 echo Changing directory to CATALINA_HOME
 cd "%CATALINA_HOME%"
