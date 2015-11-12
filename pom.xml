@@ -21,7 +21,7 @@
     <groupId>org.ozoneplatform</groupId>
     <artifactId>ozone-custom-tomcat</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.2.1</version>
     <description>Stock Tomcat server customized with OWF development SSL settings</description>
     <url>https://github.com/ozoneplatform/owf-custom-tomcat</url>
     <licenses>
@@ -50,7 +50,8 @@
         <connection>scm:git:http://github.com/ozoneplatform/owf-custom-tomcat.git</connection>
         <developerConnection>scm:git:http://github.com/ozoneplatform/owf-custom-tomcat.git</developerConnection>
         <url>http://github.com/ozoneplatform/owf-custom-tomcat</url>
-    </scm>
+      <tag>v1.2.1</tag>
+  </scm>
 
     <properties>
         <!--
@@ -121,22 +122,16 @@
                                   the 'cache' directory. You may download it
                                   before starting the build.
                                   -->
-                                <get src="${tomcat.archive.url}/${tomcat.filename}"
-                                     dest="cache/${tomcat.filename}"
-                                     verbose="true"
-                                     usetimestamp="true" />
+                                <get src="${tomcat.archive.url}/${tomcat.filename}" dest="cache/${tomcat.filename}" verbose="true" usetimestamp="true" />
 
-                                <unzip src="cache/${tomcat.filename}"
-                                       dest="${project.build.directory}" />
+                                <unzip src="cache/${tomcat.filename}" dest="${project.build.directory}" />
 
                                 <!--
                                   Convert line endings to UNIX for files
                                   that will be patched. Patch command fails
                                   with Windows CRLF terminators.
                                   -->
-                                <fixcrlf srcdir="${tomcat.stage}"
-                                    includes="**/service.bat,**/server.xml"
-                                    eol="lf" />
+                                <fixcrlf srcdir="${tomcat.stage}" includes="**/service.bat,**/server.xml" eol="lf" />
                             </target>
                         </configuration>
                         <goals>
@@ -149,14 +144,12 @@
                         <configuration>
                             <target>
                                 <!-- Replace with newer juli lib -->
-                                <copy file="lib/tomcat-extras-juli-${juli.version}.jar"
-                                      tofile="${tomcat.stage}/bin/tomcat-juli.jar"
-                                      overwrite="true" />
+                                <copy file="lib/tomcat-extras-juli-${juli.version}.jar" tofile="${tomcat.stage}/bin/tomcat-juli.jar" overwrite="true" />
 
                                 <!-- All other JARs go to server CLASSPATH -->
                                 <copy todir="${tomcat.stage}/lib">
                                     <fileset dir="lib">
-                                        <exclude name="tomcat-extras-juli-${juli.version}.jar"/>
+                                        <exclude name="tomcat-extras-juli-${juli.version}.jar" />
                                     </fileset>
                                 </copy>
 
@@ -182,16 +175,13 @@
                                   on a single line if they open it in
                                   notepad.
                                   -->
-                                <fixcrlf srcdir="${tomcat.stage}"
-                                         includes="**/*.bat,**/server.xml"
-                                         eol="crlf" />
+                                <fixcrlf srcdir="${tomcat.stage}" includes="**/*.bat,**/server.xml" eol="crlf" />
 
                                 <!--
                                   Make shell scripts executable. Only works
                                   if build is run on Linux/UNIX.
                                   -->
-                                <chmod dir="${tomcat.stage}" perm="+x"
-                                       includes="**/*.sh" />
+                                <chmod dir="${tomcat.stage}" perm="+x" includes="**/*.sh" />
                             </target>
                         </configuration>
                         <goals>
