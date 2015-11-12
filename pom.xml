@@ -21,7 +21,7 @@
     <groupId>org.ozoneplatform</groupId>
     <artifactId>ozone-custom-tomcat</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.1</version>
+    <version>1.2.2-SNAPSHOT</version>
     <description>Stock Tomcat server customized with OWF development SSL settings</description>
     <url>https://github.com/ozoneplatform/owf-custom-tomcat</url>
     <licenses>
@@ -50,7 +50,7 @@
         <connection>scm:git:http://github.com/ozoneplatform/owf-custom-tomcat.git</connection>
         <developerConnection>scm:git:http://github.com/ozoneplatform/owf-custom-tomcat.git</developerConnection>
         <url>http://github.com/ozoneplatform/owf-custom-tomcat</url>
-      <tag>v1.2.1</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <properties>
