@@ -47,9 +47,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:ozoneplatform/owf-custom-tomcat.git</connection>
-        <developerConnection>scm:git:git@github.com:ozoneplatform/owf-custom-tomcat.git</developerConnection>
-        <url>git@github.com:ozoneplatform/owf-custom-tomcat.git</url>
+        <connection>scm:git:http://github.com/ozoneplatform/owf-custom-tomcat.git</connection>
+        <developerConnection>scm:git:http://github.com/ozoneplatform/owf-custom-tomcat.git</developerConnection>
+        <url>http://github.com/ozoneplatform/owf-custom-tomcat</url>
     </scm>
 
     <properties>
