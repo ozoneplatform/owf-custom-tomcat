@@ -4,7 +4,7 @@ SETLOCAL
 
 SET GRAILS_ENV=production
 
-SET CONFIG_PATH="classpath:/config/ozone-framework_h2.yml"
+SET CONFIG_PATH="classpath:/config/ozone-framework_postgresql.yml"
 
 SET AUTO_USER=testAdmin1
 
@@ -27,7 +27,6 @@ SET JAVA_OPTS=%JAVA_OPTS% -Dspring.config.location=%CONFIG_PATH%
 
 IF "%INIT_DB%"=="true" (
   SET JAVA_OPTS=%JAVA_OPTS% -Dowf.db.init=true
-  del prodDb.mv.db > nul 2>&1
 )
 
 IF "%GRAILS_ENV%"=="development" (
@@ -36,3 +35,4 @@ IF "%GRAILS_ENV%"=="development" (
 
 
 bin\catalina.bat run
+

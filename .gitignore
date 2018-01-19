@@ -1,52 +1,38 @@
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-#*.jar
-*.rar
-*.tar
-*.zip
+!.gitkeep
 
-# Logs and databases #
-######################
-*.log
-#*.sql
-*.sqlite
+.gradle/
+build/
+bin/
 
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-#Icon?
-ehthumbs.db
-Thumbs.db
-
-# Directories
-######################
+### JetBrains (IntelliJ)
 .idea/
-/target/*
-/target-eclipse/*
-.settings/
-/cache
-/lib
 
-# Project files
-######################
-*.iml
-*.ipr
-*.ids
-*.iws
-*.tmproj
+### Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+Desktop.ini
+
+### Mac OS
+# General
+*.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+### Eclipse files
 .classpath
 .project
+.settings/
 
-# local backup files
-*.bak
-.*.swp
+### JGIT CAC files
+RITE_server_public/
+agent.jar
+card.config
+jgit-cli-2.3-20130108.jar
+jgit.cac.sh
+jgit.unix.sh
+jssecacerts
+mscapi-agent-option/
+pkcs11.config
