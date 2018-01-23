@@ -104,13 +104,7 @@ artifacts {
     }
 }
 
-// Remove the default JAR artifact
-configurations.archives.artifacts.removeAll { it.type == 'jar' }
-
-// Replace the unused default 'build' and 'install' task dependencies
-build.dependsOn = [buildCustomTomcatZip]
-install.dependsOn = [build]
-
+build.dependsOn(buildCustomTomcatZip)
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.2.1'
