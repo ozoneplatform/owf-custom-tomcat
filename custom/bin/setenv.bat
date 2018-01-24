@@ -11,10 +11,10 @@ rem
 rem Check for -server flag
 java -server -version 1> nul 2>&1
 if not errorlevel 1 (
-set CATALINA_OPTS=-server %CATALINA_OPTS%
+  set CATALINA_OPTS=-server %CATALINA_OPTS%
 )
 
-set JAVA_OPTS=-Dstringchararrayaccessor.disabled=true
+set JAVA_OPTS=%JAVA_OPTS% -Dstringchararrayaccessor.disabled=true
 
 echo Running SETENV.BAT
 echo Changing directory to CATALINA_HOME
