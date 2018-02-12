@@ -1,34 +1,38 @@
-## H2 (embedded, in-memory / file)
+# Usage Instructions
 
-Configuration file: `$TOMCAT_HOME/lib/config/ozone-framework_h2.yml`
+## Database drivers
 
-Windows Usage:
-```
-start.bat [/dev] [/init]
-  /init   Pre-populate the database with the initial data (only use on the first launch!)
-  /dev    Start in `development` mode
-```
+__IMPORTANT:__ 
+To use any database (other than H2), the JDBC driver JAR must be copied 
+to the `$TOMCAT_HOME/lib/` directory.
 
-## PostgreSQL
+PostgreSQL drivers may be found in `$BUNDLE_ROOT/drivers/postgresql-*.jar`
 
-__IMPORTANT:__ To use PostgreSQL, the driver JAR must be copied from `$BUNDLE_ROOT/drivers/postgresql-*.jar` to the
-`$TOMCAT_HOME/lib/` directory.
 
-Configuration file: `$TOMCAT_HOME/lib/config/ozone-framework_postgresql.yml`
+## Configuration
+
+Example configuration files are provided in `$TOMCAT_HOME/lib/config/`:
+
+
+## Windows start script
 
 Usage:
 ```
-start-pg.bat [/dev] [/init]
-  /init   Pre-populate the database with the initial data (only use on the first launch!)
-  /dev    Start in `development` mode
+start.bat [/dev] [/init] [/db database]
+  /init      Pre-populate the database with the initial data (only use on the first launch!)
+  /db        Use the selected database configuration
+  database     h2     - Embedded H2 file-based database (default)
+               pg     - PostgreSQL
+               mysql  - MySQL
+               oracle - Oracle RDBMS
+               mssql  - Microsoft SQL Server
+  /dev       Start server in DEVELOPMENT mode                
 ```
 
-## Linux: single script
 
-__IMPORTANT:__ To use any database (other than H2), the driver JAR must be copied from `$BUNDLE_ROOT/drivers/postgresql-*.jar` to the `$TOMCAT_HOME/lib/` directory.
+## Linux start script
 
-Configuration files will be located at: `$TOMCAT_HOME/lib/config/`
-Linux Usage:
+Usage:
 ```
 ./start.sh [dev] [init] [db [--mysql | --h2 | --pg | --oracle] ]
   init   Pre-populate the database with the initial data (only use on the first launch!)
