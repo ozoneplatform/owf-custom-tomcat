@@ -1,8 +1,8 @@
 !.gitkeep
 
-.gradle/
-build/
-bin/
+/.gradle/
+/build/
+/bin/
 
 ### JetBrains (IntelliJ)
 .idea/
