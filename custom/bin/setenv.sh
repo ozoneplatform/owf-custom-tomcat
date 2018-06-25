@@ -27,7 +27,7 @@ if java -server -version 2> /dev/null; then
     CATALINA_OPTS="-server $CATALINA_OPTS"
 fi
 
-export JAVA_OPTS=-Dstringchararrayaccessor.disabled=true
+export JAVA_OPTS=$JAVA_OPTS -Dstringchararrayaccessor.disabled=true
 
 echo "Running setenv.sh"
 echo "Changing directory to CATALINA_HOME"
