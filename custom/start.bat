@@ -2,9 +2,7 @@
 SETLOCAL
 
 SET GRAILS_ENV=production
-
 SET CONFIG_DB=h2
-
 SET AUTO_USER=testAdmin1
 
 
@@ -13,10 +11,9 @@ GOTO :parseOptions
 
 :showUsage
 ECHO:
-ECHO Usage: %0 [/dev] [/init] [/db database]
+ECHO Usage: %0 [/dev] [/db database]
 ECHO:
 ECHO Optional arguments:
-ECHO   /init      Initialize the database
 ECHO   /db        Use the selected database configuration
 ECHO   database     h2     - Embedded H2 file-based database (default)
 ECHO                pg     - PostgreSQL
@@ -43,16 +40,11 @@ IF NOT "%1"=="" (
         SET GRAILS_ENV=development
         GOTO :parseNextOption
     )
-    IF "%1"=="/init" (
-        SET INIT_DB=true
-        GOTO :parseNextOption
-    )
     IF "%1"=="/db" (
         IF "%2"=="" (
             ECHO Invalid argument: /db requires database option
             GOTO :showUsage
         )
-
         IF "%2"=="h2" (
             SET CONFIG_DB=h2
             GOTO :parseNextOption2
@@ -92,16 +84,10 @@ GOTO :parseOptions
 SET JAVA_OPTS=%JAVA_OPTS% -Dgrails.env=%GRAILS_ENV%
 SET JAVA_OPTS=%JAVA_OPTS% -Dspring.config.location="classpath:/config/ozone-framework_%CONFIG_DB%.yml"
 
-IF "%INIT_DB%"=="true" (
-    SET JAVA_OPTS=%JAVA_OPTS% -Dowf.db.init=true
-    IF "%CONFIG_DB%"=="h2" (
-        del prodDb.mv.db > nul 2>&1
-    )
-)
-
 IF "%GRAILS_ENV%"=="development" (
     SET JAVA_OPTS=%JAVA_OPTS% -Duser=%AUTO_USER%
 )
+
 
 bin\catalina.bat run
 
